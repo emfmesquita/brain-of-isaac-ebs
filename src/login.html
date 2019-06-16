@@ -1,0 +1,23 @@
+<html>
+
+<body>
+  <div id="msg"></div>
+  <script>
+    fetch("{{ clientUrl }}", {
+      method: 'POST',
+      body: JSON.stringify({
+        session_id: "{{ sessionId }}",
+        username: "{{ login }}",
+        display_name: "{{ display_name }}",
+        profile_image_url: "{{ profile_image_url }}"
+      })
+    }).then(() => {
+      document.getElementById("msg").textContent = "Welcome {{ display_name }}.";
+    }).catch(error => {
+      console.error(error);
+      document.getElementById("msg").textContent = "Login Timeout";
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "brain-of-isaac-ebs",
+  "version": "0.0.1",
+  "description": "The Brain of Isaac Twitch Extension Background Server",
+  "main": "src/backend.js",
+  "scripts": {
+    "start": "node --inspect=9229 src/backend"
+  },
+  "author": "Edson Mesquita",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "color": "^3.1.1",
+    "connect-mongo": "^2.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "handlebars": "^4.1.2",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
