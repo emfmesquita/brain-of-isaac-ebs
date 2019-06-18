@@ -103,6 +103,9 @@ app.get("/ping", (req, res) => {
 
 LoginRoutes(app);
 
-app.listen(port, () =>
-  console.log(`Brain of Isaac EBS listening on port ${port}!`)
-);
+app.listen(port, () => {
+  console.log(`Brain of Isaac EBS listening on port ${port}!`);
+  setInterval(() => {
+    axios.get(`${process.env.EBS_URL}/ping`).then(res => console.log(res.data));
+  }, 300000); // every 5 minutes (300000)
+});
