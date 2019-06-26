@@ -6,6 +6,7 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const MongoStore = require("connect-mongo")(session);
 const LoginRoutes = require("./LoginRoutes");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
@@ -29,7 +30,9 @@ app.use(
 );
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 const port = process.env.PORT || 3000;
 const clientId = process.env.ENV_CLIENT_ID;
@@ -101,11 +104,24 @@ app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
+app.use( express.static( __dirname + '/client' ));
+
+app.get("/form", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "form.html"));
+});
+
+app.post("/submit", (req, res) => {
+  console.log(req.body);
+  res.send("ok");
+});
+
+
 LoginRoutes(app);
 
 app.listen(port, () => {
   console.log(`Brain of Isaac EBS listening on port ${port}!`);
   setInterval(() => {
     axios.get(`${process.env.EBS_URL}/ping`).then(res => console.log(res.data));
+    axios.get(`https://dnd-character-creator-api.herokuapp.com`).then(res => console.log(res.data));
   }, 300000); // every 5 minutes (300000)
 });
